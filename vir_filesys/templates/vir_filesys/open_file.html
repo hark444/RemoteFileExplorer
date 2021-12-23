@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    {% load static %}
+    <title>{{ filename }}</title>
+</head>
+<body>
+<p>{{ dir }}</p>
+
+<!--Rendering images-->
+{% if 'image' == file_type %}
+<img src="{% static "" %}{{ dir }}">
+{% endif %}
+
+<!--Rendering PDF files-->
+{% if file_type == "pdf" %}
+<embed src="{% static "" %}{{ dir }}" type="application/pdf" height="700px" width="1200px">
+{% endif %}
+
+<!--Rendering videos-->
+{% if file_type == "video" %}
+<video width="530" height="440" controls>
+    <source src="{% static "" %}{{ dir }}" type="video/mp4"></source>
+</video>
+{% endif %}
+
+<form id="form1" action="/open/" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="current_dir" value="{{ previous_dir }}">
+    <input type="hidden" name="file_name" value="{{ filename }}">
+        <p>
+            <button type="submit" name="directory" value="">Previous Page</button>
+            <button type="submit" name="_method" value="delete">Delete</button>
+        </p>
+</form>
+
+</body>

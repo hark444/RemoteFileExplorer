@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home View</title>
+</head>
+<body>
+<h3>{{ page_header }}</h3>
+<form id="form1" action="/open/" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="current_dir" value="{{ current_dir }}">
+    {% for file in files %}
+        <p>
+        <input type="submit" name="directory" value="{{ file }}">
+        </p>
+    {% endfor %}
+</form>
+
+</body>
+</html>
